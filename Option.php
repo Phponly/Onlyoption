@@ -1,6 +1,6 @@
 <?php
 
-namespace Fulgur0\Onlyoption;
+namespace Phponly\Onlyoption;
 
 use ArrayAccess;
 use IteratorAggregate;

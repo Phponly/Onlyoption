@@ -1,36 +1,15 @@
 <?php
 
-/*
- * Copyright 2012 Johannes M. Schmitt <schmittjoh@gmail.com>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-namespace PhpOption;
+namespace Fulgur0\Onlyoption;
 
 use EmptyIterator;
+use Exception;
+use RuntimeException;
 
-/**
- * @extends Option<mixed>
- */
 final class None extends Option
 {
-    /** @var None|null */
     private static $instance;
 
-    /**
-     * @return None
-     */
     public static function create(): self
     {
         if (null === self::$instance) {
@@ -42,7 +21,7 @@ final class None extends Option
 
     public function get()
     {
-        throw new \RuntimeException('None has no value.');
+        throw new RuntimeException('None has no value.');
     }
 
     public function getOrCall($callable)
@@ -55,7 +34,7 @@ final class None extends Option
         return $default;
     }
 
-    public function getOrThrow(\Exception $ex)
+    public function getOrThrow(Exception $ex)
     {
         throw $ex;
     }
@@ -75,10 +54,7 @@ final class None extends Option
         return $else;
     }
 
-    public function ifDefined($callable)
-    {
-        // Just do nothing in that case.
-    }
+    public function ifDefined($callable) {}
 
     public function forAll($callable)
     {
@@ -130,7 +106,5 @@ final class None extends Option
         return $initialValue;
     }
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 }

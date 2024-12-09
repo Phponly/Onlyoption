@@ -1,50 +1,18 @@
 <?php
 
-/*
- * Copyright 2012 Johannes M. Schmitt <schmittjoh@gmail.com>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-namespace PhpOption;
+namespace Fulgur0\Onlyoption;
 
 use ArrayIterator;
 
-/**
- * @template T
- *
- * @extends Option<T>
- */
 final class Some extends Option
 {
-    /** @var T */
     private $value;
 
-    /**
-     * @param T $value
-     */
     public function __construct($value)
     {
         $this->value = $value;
     }
 
-    /**
-     * @template U
-     *
-     * @param U $value
-     *
-     * @return Some<U>
-     */
     public static function create($value): self
     {
         return new self($value);
@@ -104,7 +72,6 @@ final class Some extends Option
 
     public function flatMap($callable)
     {
-        /** @var mixed */
         $rs = $callable($this->value);
         if (!$rs instanceof Option) {
             throw new \RuntimeException('Callables passed to flatMap() must return an Option. Maybe you should use map() instead?');
@@ -149,9 +116,6 @@ final class Some extends Option
         return $this;
     }
 
-    /**
-     * @return ArrayIterator<int, T>
-     */
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator([$this->value]);
